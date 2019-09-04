@@ -82,21 +82,21 @@
 <meta name="description" content="Day 01效率开发效率：C++11 -&amp;gt; auto、lambda、move同步、异步、多线程、多进程…运行效率 预备知识 TCP/IP （网络编程都是此种协议） TCP -&amp;gt; 传输控制协议 IP    -&amp;gt; 网际协议   Socket C++ 指针、引用、地址、循环、函数、类… std::shared_ptr、std::thread、std::aync、decltype、std">
 <meta name="keywords" content="C++,网络编程,服务器编程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[学习笔记] C++ 服务器编程开发">
+<meta property="og:title" content="C++ 服务器编程开发">
 <meta property="og:url" content="http://yoursite.com/2019/09/04/学习笔记-C-服务器编程开发/index.html">
 <meta property="og:site_name" content="Narlgc&#39;s Notebook">
 <meta property="og:description" content="Day 01效率开发效率：C++11 -&amp;gt; auto、lambda、move同步、异步、多线程、多进程…运行效率 预备知识 TCP/IP （网络编程都是此种协议） TCP -&amp;gt; 传输控制协议 IP    -&amp;gt; 网际协议   Socket C++ 指针、引用、地址、循环、函数、类… std::shared_ptr、std::thread、std::aync、decltype、std">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/09/04/学习笔记-C-服务器编程开发/images/OSI_model.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/09/04/学习笔记-C-服务器编程开发/images/IP_model.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/09/04/学习笔记-C-服务器编程开发/images/UDP_%E5%8D%8F%E8%AE%AE%E6%A0%88%E5%B0%81%E8%A3%85.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/09/04/学习笔记-C-服务器编程开发/images/IP_telegraph.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/09/04/学习笔记-C-服务器编程开发/images/Big_Small_Endian.jpg">
-<meta property="og:updated_time" content="2019-09-04T14:46:36.418Z">
+<meta property="og:image" content="http://yoursite.com/images/OSI_model.jpg">
+<meta property="og:image" content="http://yoursite.com/images/IP_model.jpg">
+<meta property="og:image" content="http://yoursite.com/images/UDP_%E5%8D%8F%E8%AE%AE%E6%A0%88%E5%B0%81%E8%A3%85.jpg">
+<meta property="og:image" content="http://yoursite.com/images/IP_telegraph.jpg">
+<meta property="og:image" content="http://yoursite.com/images/Big_Small_Endian.jpg">
+<meta property="og:updated_time" content="2019-09-04T15:31:16.937Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[学习笔记] C++ 服务器编程开发">
+<meta name="twitter:title" content="C++ 服务器编程开发">
 <meta name="twitter:description" content="Day 01效率开发效率：C++11 -&amp;gt; auto、lambda、move同步、异步、多线程、多进程…运行效率 预备知识 TCP/IP （网络编程都是此种协议） TCP -&amp;gt; 传输控制协议 IP    -&amp;gt; 网际协议   Socket C++ 指针、引用、地址、循环、函数、类… std::shared_ptr、std::thread、std::aync、decltype、std">
-<meta name="twitter:image" content="http://yoursite.com/2019/09/04/学习笔记-C-服务器编程开发/images/OSI_model.jpg">
+<meta name="twitter:image" content="http://yoursite.com/images/OSI_model.jpg">
 
 
 
@@ -132,7 +132,7 @@
 
 
 
-  <title>[学习笔记] C++ 服务器编程开发 | Narlgc's Notebook</title>
+  <title>C++ 服务器编程开发 | Narlgc's Notebook</title>
   
 
 
@@ -238,7 +238,7 @@
       
         
         <li class="menu-item menu-item-schedule">
-          <a href="/schedule/cal.html" rel="section">
+          <a href="/schedule/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
             
@@ -328,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">[学习笔记] C++ 服务器编程开发</h1>
+          <h1 class="post-title" itemprop="name headline">C++ 服务器编程开发</h1>
         
 
         <div class="post-meta">
@@ -439,15 +439,15 @@
 <h2 id="IP网际协议详解"><a href="#IP网际协议详解" class="headerlink" title="IP网际协议详解"></a>IP网际协议详解</h2><blockquote>
 <p>IP = Internet protocol suite</p>
 </blockquote>
-<h3 id="OSI模型（Open-System-Interconnection-model）"><a href="#OSI模型（Open-System-Interconnection-model）" class="headerlink" title="OSI模型（Open System Interconnection model）"></a>OSI模型（Open System Interconnection model）</h3><p><img src="images/OSI_model.jpg" alt><br><font color="red"><b>注意:</b></font> 七个层级，过于复杂。</p>
-<h3 id="IP模型"><a href="#IP模型" class="headerlink" title="IP模型"></a>IP模型</h3><p><img src="images/IP_model.jpg" alt></p>
-<h4 id="数据进入协议栈的封装"><a href="#数据进入协议栈的封装" class="headerlink" title="数据进入协议栈的封装"></a>数据进入协议栈的封装</h4><p><img src="images/UDP_%E5%8D%8F%E8%AE%AE%E6%A0%88%E5%B0%81%E8%A3%85.jpg" alt><br><font color="red"><b>注意:</b></font> <strong>Frame data</strong> 长度有要求，最小46字节，不足添0；最大1500个字节。</p>
+<h3 id="OSI模型（Open-System-Interconnection-model）"><a href="#OSI模型（Open-System-Interconnection-model）" class="headerlink" title="OSI模型（Open System Interconnection model）"></a>OSI模型（Open System Interconnection model）</h3><p><img src="/images/OSI_model.jpg" alt><br><font color="red"><b>注意:</b></font> 七个层级，过于复杂。</p>
+<h3 id="IP模型"><a href="#IP模型" class="headerlink" title="IP模型"></a>IP模型</h3><p><img src="/images/IP_model.jpg" alt></p>
+<h4 id="数据进入协议栈的封装"><a href="#数据进入协议栈的封装" class="headerlink" title="数据进入协议栈的封装"></a>数据进入协议栈的封装</h4><p><img src="/images/UDP_%E5%8D%8F%E8%AE%AE%E6%A0%88%E5%B0%81%E8%A3%85.jpg" alt><br><font color="red"><b>注意:</b></font> <strong>Frame data</strong> 长度有要求，最小46字节，不足添0；最大1500个字节。</p>
 <blockquote>
 <p>MTU（最大传输单元），当<code>传输数据 &gt; MTU</code>时，则在IP层需要拆分成小包。 </p>
 </blockquote>
 <h4 id="IP特点"><a href="#IP特点" class="headerlink" title="IP特点"></a>IP特点</h4><ul>
 <li>不可靠（unreliable）</li>
-<li>无连接（connectionless）<h4 id="IP数据报格式首部字段"><a href="#IP数据报格式首部字段" class="headerlink" title="IP数据报格式首部字段"></a>IP数据报格式首部字段</h4><img src="images/IP_telegraph.jpg" alt><br><font color="red"><b>注意:【小小】</b></font> 网络数据都是按照<strong>Big Endian【大端存储】</strong>传送的；家用操作系统都是<strong>Littele Endian</strong>数据存储。<br><img src="images/Big_Small_Endian.jpg" alt="Big_Small_Endian.jpg"></li>
+<li>无连接（connectionless）<h4 id="IP数据报格式首部字段"><a href="#IP数据报格式首部字段" class="headerlink" title="IP数据报格式首部字段"></a>IP数据报格式首部字段</h4><img src="/images/IP_telegraph.jpg" alt><br><font color="red"><b>注意:【小小】</b></font> 网络数据都是按照<strong>Big Endian【大端存储】</strong>传送的；家用操作系统都是<strong>Littele Endian</strong>数据存储。<br><img src="/images/Big_Small_Endian.jpg" alt="Big_Small_Endian.jpg"></li>
 </ul>
 <p><strong>思考题</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">isLittleEndianSystem</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -504,7 +504,7 @@
         </li>
         <li class="post-copyright-link">
           <strong>本文链接：</strong>
-          <a href="/2019/09/04/学习笔记-C-服务器编程开发/" title="[学习笔记] C++ 服务器编程开发">2019/09/04/学习笔记-C-服务器编程开发/</a>
+          <a href="/2019/09/04/学习笔记-C-服务器编程开发/" title="C++ 服务器编程开发">2019/09/04/学习笔记-C-服务器编程开发/</a>
         </li>
         <li class="post-copyright-license">
           <strong>版权： </strong>
@@ -534,8 +534,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/03/sql-note/" rel="next" title="sql-note">
-                <i class="fa fa-chevron-left"></i> sql-note
+              <a href="/2019/09/03/SQL常用命令汇总/" rel="next" title="SQL常用命令汇总">
+                <i class="fa fa-chevron-left"></i> SQL常用命令汇总
               </a>
             
           </div>
@@ -901,7 +901,7 @@
         var disqus_config = function () {
           this.page.url = 'http://yoursite.com/2019/09/04/学习笔记-C-服务器编程开发/';
           this.page.identifier = '2019/09/04/学习笔记-C-服务器编程开发/';
-          this.page.title = '[学习笔记] C++ 服务器编程开发';
+          this.page.title = 'C++ 服务器编程开发';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://Narglc.disqus.com/embed.js';

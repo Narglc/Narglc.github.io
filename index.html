@@ -231,7 +231,7 @@
       
         
         <li class="menu-item menu-item-schedule">
-          <a href="/schedule/cal.html" rel="section">
+          <a href="/schedule/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
             
@@ -323,7 +323,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/04/学习笔记-C-服务器编程开发/" itemprop="url">[学习笔记] C++ 服务器编程开发</a></h1>
+                <a class="post-title-link" href="/2019/09/04/学习笔记-C-服务器编程开发/" itemprop="url">C++ 服务器编程开发</a></h1>
         
 
         <div class="post-meta">
@@ -431,15 +431,15 @@
 <h2 id="IP网际协议详解"><a href="#IP网际协议详解" class="headerlink" title="IP网际协议详解"></a>IP网际协议详解</h2><blockquote>
 <p>IP = Internet protocol suite</p>
 </blockquote>
-<h3 id="OSI模型（Open-System-Interconnection-model）"><a href="#OSI模型（Open-System-Interconnection-model）" class="headerlink" title="OSI模型（Open System Interconnection model）"></a>OSI模型（Open System Interconnection model）</h3><p><img src="images/OSI_model.jpg" alt><br><font color="red"><b>注意:</b></font> 七个层级，过于复杂。</p>
-<h3 id="IP模型"><a href="#IP模型" class="headerlink" title="IP模型"></a>IP模型</h3><p><img src="images/IP_model.jpg" alt></p>
-<h4 id="数据进入协议栈的封装"><a href="#数据进入协议栈的封装" class="headerlink" title="数据进入协议栈的封装"></a>数据进入协议栈的封装</h4><p><img src="images/UDP_%E5%8D%8F%E8%AE%AE%E6%A0%88%E5%B0%81%E8%A3%85.jpg" alt><br><font color="red"><b>注意:</b></font> <strong>Frame data</strong> 长度有要求，最小46字节，不足添0；最大1500个字节。</p>
+<h3 id="OSI模型（Open-System-Interconnection-model）"><a href="#OSI模型（Open-System-Interconnection-model）" class="headerlink" title="OSI模型（Open System Interconnection model）"></a>OSI模型（Open System Interconnection model）</h3><p><img src="/images/OSI_model.jpg" alt><br><font color="red"><b>注意:</b></font> 七个层级，过于复杂。</p>
+<h3 id="IP模型"><a href="#IP模型" class="headerlink" title="IP模型"></a>IP模型</h3><p><img src="/images/IP_model.jpg" alt></p>
+<h4 id="数据进入协议栈的封装"><a href="#数据进入协议栈的封装" class="headerlink" title="数据进入协议栈的封装"></a>数据进入协议栈的封装</h4><p><img src="/images/UDP_%E5%8D%8F%E8%AE%AE%E6%A0%88%E5%B0%81%E8%A3%85.jpg" alt><br><font color="red"><b>注意:</b></font> <strong>Frame data</strong> 长度有要求，最小46字节，不足添0；最大1500个字节。</p>
 <blockquote>
 <p>MTU（最大传输单元），当<code>传输数据 &gt; MTU</code>时，则在IP层需要拆分成小包。 </p>
 </blockquote>
 <h4 id="IP特点"><a href="#IP特点" class="headerlink" title="IP特点"></a>IP特点</h4><ul>
 <li>不可靠（unreliable）</li>
-<li>无连接（connectionless）<h4 id="IP数据报格式首部字段"><a href="#IP数据报格式首部字段" class="headerlink" title="IP数据报格式首部字段"></a>IP数据报格式首部字段</h4><img src="images/IP_telegraph.jpg" alt><br><font color="red"><b>注意:【小小】</b></font> 网络数据都是按照<strong>Big Endian【大端存储】</strong>传送的；家用操作系统都是<strong>Littele Endian</strong>数据存储。<br><img src="images/Big_Small_Endian.jpg" alt="Big_Small_Endian.jpg"></li>
+<li>无连接（connectionless）<h4 id="IP数据报格式首部字段"><a href="#IP数据报格式首部字段" class="headerlink" title="IP数据报格式首部字段"></a>IP数据报格式首部字段</h4><img src="/images/IP_telegraph.jpg" alt><br><font color="red"><b>注意:【小小】</b></font> 网络数据都是按照<strong>Big Endian【大端存储】</strong>传送的；家用操作系统都是<strong>Littele Endian</strong>数据存储。<br><img src="/images/Big_Small_Endian.jpg" alt="Big_Small_Endian.jpg"></li>
 </ul>
 <p><strong>思考题</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">isLittleEndianSystem</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -497,7 +497,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/03/sql-note/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/03/SQL常用命令汇总/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Narglc Yu">
@@ -516,7 +516,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/03/sql-note/" itemprop="url">sql-note</a></h1>
+                <a class="post-title-link" href="/2019/09/03/SQL常用命令汇总/" itemprop="url">SQL常用命令汇总</a></h1>
         
 
         <div class="post-meta">
@@ -547,8 +547,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/09/03/sql-note/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/03/sql-note/" itemprop="commentCount"></span>
+                <a href="/2019/09/03/SQL常用命令汇总/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/03/SQL常用命令汇总/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -631,7 +631,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/31/first-hexo-build/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/31/使用hexo+github搭建博客/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Narglc Yu">
@@ -650,7 +650,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/31/first-hexo-build/" itemprop="url">使用hexo+github搭建博客 笔记</a></h1>
+                <a class="post-title-link" href="/2019/08/31/使用hexo+github搭建博客/" itemprop="url">使用hexo+github搭建博客 笔记</a></h1>
         
 
         <div class="post-meta">
@@ -703,8 +703,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/08/31/first-hexo-build/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/31/first-hexo-build/" itemprop="commentCount"></span>
+                <a href="/2019/08/31/使用hexo+github搭建博客/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/31/使用hexo+github搭建博客/" itemprop="commentCount"></span>
                 </a>
               </span>
             
