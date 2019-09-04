@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Narlgc&#39;s Notebook">
 <meta property="og:description" content="常用命令汇总   命令 简写 作用    hexo deploy hexo d 部署到github等   hexo server hexo s 开启服务器, –debug 开启调试模式   hexo clean  清楚缓存文件及静态文件   hexo generate hexo g 生成静态网页,-f 等同于hexo clean &amp;amp;&amp;amp; hexo g; -d 等同于hexo g &amp;a">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-01T15:56:57.204Z">
+<meta property="og:updated_time" content="2019-09-04T12:48:56.902Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用hexo+github搭建博客 笔记">
 <meta name="twitter:description" content="常用命令汇总   命令 简写 作用    hexo deploy hexo d 部署到github等   hexo server hexo s 开启服务器, –debug 开启调试模式   hexo clean  清楚缓存文件及静态文件   hexo generate hexo g 生成静态网页,-f 等同于hexo clean &amp;amp;&amp;amp; hexo g; -d 等同于hexo g &amp;a">
@@ -232,7 +232,7 @@
       
         
         <li class="menu-item menu-item-schedule">
-          <a href="/schedule/" rel="section">
+          <a href="/schedule/cal.html" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
             
@@ -449,6 +449,7 @@
 </tr>
 </tbody></table>
 <p><font color="red">注意：</font>可以做个命令统计脚本，根据使用频次排序上述命令。</p>
+<h2 id="本地资料备份"><a href="#本地资料备份" class="headerlink" title="本地资料备份"></a>本地资料备份</h2><p>已在github添加<code>hexo</code>分支，本地资料<code>push</code>到<code>hexo</code>分支，hexo部署由<code>hexo d</code>自动推送到<code>master</code>分支。 </p>
 <h2 id="安装-hexo"><a href="#安装-hexo" class="headerlink" title="安装 hexo"></a>安装 hexo</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
 
 <h2 id="更换NexT-主题"><a href="#更换NexT-主题" class="headerlink" title="更换NexT 主题"></a>更换NexT 主题</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
@@ -629,6 +630,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/09/03/sql-note/" rel="prev" title="sql-note">
+                sql-note <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -716,7 +721,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -793,7 +798,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令汇总"><span class="nav-number">1.</span> <span class="nav-text">常用命令汇总</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-hexo"><span class="nav-number">2.</span> <span class="nav-text">安装 hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更换NexT-主题"><span class="nav-number">3.</span> <span class="nav-text">更换NexT 主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写文章"><span class="nav-number">4.</span> <span class="nav-text">写文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地启动服务器"><span class="nav-number">5.</span> <span class="nav-text">本地启动服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署到github"><span class="nav-number">6.</span> <span class="nav-text">部署到github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#generate-vs-deploy"><span class="nav-number">7.</span> <span class="nav-text">generate vs deploy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clean"><span class="nav-number">8.</span> <span class="nav-text">clean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码高亮样式"><span class="nav-number">9.</span> <span class="nav-text">代码高亮样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加阅读全文按钮-暂未开启"><span class="nav-number">10.</span> <span class="nav-text">添加阅读全文按钮 [暂未开启]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置网站缩略图标"><span class="nav-number">11.</span> <span class="nav-text">设置网站缩略图标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地搜索功能"><span class="nav-number">12.</span> <span class="nav-text">本地搜索功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-hexo-generator-searchdb-插件"><span class="nav-number">12.1.</span> <span class="nav-text">安装 hexo-generator-searchdb 插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改next主题配置文件-config-yml"><span class="nav-number">12.2.</span> <span class="nav-text">修改next主题配置文件_config.yml:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#站点配置文件-config-yml的Extensions后添加："><span class="nav-number">12.3.</span> <span class="nav-text">站点配置文件_config.yml的Extensions后添加：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#侧边栏社交链接"><span class="nav-number">13.</span> <span class="nav-text">侧边栏社交链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打赏"><span class="nav-number">14.</span> <span class="nav-text">打赏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章末尾添加版权信息"><span class="nav-number">15.</span> <span class="nav-text">文章末尾添加版权信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">15.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加显示格式"><span class="nav-number">15.2.</span> <span class="nav-text">添加显示格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#站点访问计数"><span class="nav-number">16.</span> <span class="nav-text">站点访问计数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新实现"><span class="nav-number">16.1.</span> <span class="nav-text">新实现</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令汇总"><span class="nav-number">1.</span> <span class="nav-text">常用命令汇总</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地资料备份"><span class="nav-number">2.</span> <span class="nav-text">本地资料备份</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-hexo"><span class="nav-number">3.</span> <span class="nav-text">安装 hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更换NexT-主题"><span class="nav-number">4.</span> <span class="nav-text">更换NexT 主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写文章"><span class="nav-number">5.</span> <span class="nav-text">写文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地启动服务器"><span class="nav-number">6.</span> <span class="nav-text">本地启动服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署到github"><span class="nav-number">7.</span> <span class="nav-text">部署到github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#generate-vs-deploy"><span class="nav-number">8.</span> <span class="nav-text">generate vs deploy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clean"><span class="nav-number">9.</span> <span class="nav-text">clean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码高亮样式"><span class="nav-number">10.</span> <span class="nav-text">代码高亮样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加阅读全文按钮-暂未开启"><span class="nav-number">11.</span> <span class="nav-text">添加阅读全文按钮 [暂未开启]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置网站缩略图标"><span class="nav-number">12.</span> <span class="nav-text">设置网站缩略图标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地搜索功能"><span class="nav-number">13.</span> <span class="nav-text">本地搜索功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-hexo-generator-searchdb-插件"><span class="nav-number">13.1.</span> <span class="nav-text">安装 hexo-generator-searchdb 插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改next主题配置文件-config-yml"><span class="nav-number">13.2.</span> <span class="nav-text">修改next主题配置文件_config.yml:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#站点配置文件-config-yml的Extensions后添加："><span class="nav-number">13.3.</span> <span class="nav-text">站点配置文件_config.yml的Extensions后添加：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#侧边栏社交链接"><span class="nav-number">14.</span> <span class="nav-text">侧边栏社交链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打赏"><span class="nav-number">15.</span> <span class="nav-text">打赏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章末尾添加版权信息"><span class="nav-number">16.</span> <span class="nav-text">文章末尾添加版权信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">16.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加显示格式"><span class="nav-number">16.2.</span> <span class="nav-text">添加显示格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#站点访问计数"><span class="nav-number">17.</span> <span class="nav-text">站点访问计数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新实现"><span class="nav-number">17.1.</span> <span class="nav-text">新实现</span></a></li></ol></li></ol></div>
             
 
           </div>
