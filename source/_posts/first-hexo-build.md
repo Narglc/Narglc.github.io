@@ -19,6 +19,15 @@ hexo new page tags | | 在`source`创建`tags`文件夹，且生成`index.md`的
 
 <font color="red">注意：</font>可以做个命令统计脚本，根据使用频次排序上述命令。
 
+## 本地资料备份
+已在github添加`hexo`分支，本地资料`push`到`hexo`分支，hexo部署由`hexo d`自动推送到`master`分支。 
+
+``` bash
+git push origin hexo
+```
+
+
+
 ## 安装 hexo
 
 ```
