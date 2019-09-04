@@ -79,6 +79,7 @@ void quizOne()
 #### IP特点
 - 不可靠（unreliable）
 - 无连接（connectionless）
+
 #### IP数据报格式首部字段
 ![](/images/IP_telegraph.jpg)
 <font color="red"><b>注意:【小小】</b></font> 网络数据都是按照**Big Endian【大端存储】**传送的；家用操作系统都是**Littele Endian**数据存储。 
@@ -89,6 +90,38 @@ static bool isLittleEndianSystem(){
 
 }
 ```
+
+## TCP详解
+### TCP如何利用IP
+- IP的特点
+- TCP将应用程序的传输数据分割成合适的数据块
+- 定时器
+- 延迟确认
+- 检验和CRC
+- 流量控制
+
+### TCP首部
+![](/images/TCP_header.jpg)
+<font color="red"><b>注意:</b></font> IP首部20Byte，TCP首部20Byte，如需在网络传输，还需填充6Byte。
+> 所谓的`Socket` , 即`ip+port`
+> > ip 来自 IP首部
+> > port 来自 TCP首部
+
+- `Sequence Number` 用于标记`定时器`对那一数据包计时。
+- `Acknowlegment Number` 与`延迟确认`有关 -> if `ACK` set
+- `Checksum` 与 `检验和` 有关
+- `Data offset` -- 数据长度
+- `URG` -> 数据紧急标志位
+- `ACK` -> 数据确认标识位
+- `PSH` -> push
+- `RST` -> reset
+- `SYN` -> 建立时需要
+- `FIN` -> 结束
+
+### TCP状态
+![](/images/TCP_states.jpg)
+
+
 
 
 
