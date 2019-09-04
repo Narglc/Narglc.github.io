@@ -92,7 +92,9 @@
 <meta property="og:image" content="http://yoursite.com/images/UDP_%E5%8D%8F%E8%AE%AE%E6%A0%88%E5%B0%81%E8%A3%85.jpg">
 <meta property="og:image" content="http://yoursite.com/images/IP_telegraph.jpg">
 <meta property="og:image" content="http://yoursite.com/images/Big_Small_Endian.jpg">
-<meta property="og:updated_time" content="2019-09-04T15:31:16.937Z">
+<meta property="og:image" content="http://yoursite.com/images/TCP_header.jpg">
+<meta property="og:image" content="http://yoursite.com/images/TCP_states.jpg">
+<meta property="og:updated_time" content="2019-09-04T16:43:19.333Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++ 服务器编程开发">
 <meta name="twitter:description" content="Day 01效率开发效率：C++11 -&amp;gt; auto、lambda、move同步、异步、多线程、多进程…运行效率 预备知识 TCP/IP （网络编程都是此种协议） TCP -&amp;gt; 传输控制协议 IP    -&amp;gt; 网际协议   Socket C++ 指针、引用、地址、循环、函数、类… std::shared_ptr、std::thread、std::aync、decltype、std">
@@ -447,11 +449,39 @@
 </blockquote>
 <h4 id="IP特点"><a href="#IP特点" class="headerlink" title="IP特点"></a>IP特点</h4><ul>
 <li>不可靠（unreliable）</li>
-<li>无连接（connectionless）<h4 id="IP数据报格式首部字段"><a href="#IP数据报格式首部字段" class="headerlink" title="IP数据报格式首部字段"></a>IP数据报格式首部字段</h4><img src="/images/IP_telegraph.jpg" alt><br><font color="red"><b>注意:【小小】</b></font> 网络数据都是按照<strong>Big Endian【大端存储】</strong>传送的；家用操作系统都是<strong>Littele Endian</strong>数据存储。<br><img src="/images/Big_Small_Endian.jpg" alt="Big_Small_Endian.jpg"></li>
+<li>无连接（connectionless）</li>
 </ul>
-<p><strong>思考题</strong>：</p>
+<h4 id="IP数据报格式首部字段"><a href="#IP数据报格式首部字段" class="headerlink" title="IP数据报格式首部字段"></a>IP数据报格式首部字段</h4><p><img src="/images/IP_telegraph.jpg" alt><br><font color="red"><b>注意:【小小】</b></font> 网络数据都是按照<strong>Big Endian【大端存储】</strong>传送的；家用操作系统都是<strong>Littele Endian</strong>数据存储。<br><img src="/images/Big_Small_Endian.jpg" alt="Big_Small_Endian.jpg"><br><strong>思考题</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">isLittleEndianSystem</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="TCP详解"><a href="#TCP详解" class="headerlink" title="TCP详解"></a>TCP详解</h2><h3 id="TCP如何利用IP"><a href="#TCP如何利用IP" class="headerlink" title="TCP如何利用IP"></a>TCP如何利用IP</h3><ul>
+<li>IP的特点</li>
+<li>TCP将应用程序的传输数据分割成合适的数据块</li>
+<li>定时器</li>
+<li>延迟确认</li>
+<li>检验和CRC</li>
+<li>流量控制</li>
+</ul>
+<h3 id="TCP首部"><a href="#TCP首部" class="headerlink" title="TCP首部"></a>TCP首部</h3><p><img src="/images/TCP_header.jpg" alt><br><font color="red"><b>注意:</b></font> IP首部20Byte，TCP首部20Byte，如需在网络传输，还需填充6Byte。</p>
+<blockquote>
+<p>所谓的<code>Socket</code> , 即<code>ip+port</code></p>
+<blockquote>
+<p>ip 来自 IP首部<br>port 来自 TCP首部</p>
+</blockquote>
+</blockquote>
+<ul>
+<li><code>Sequence Number</code> 用于标记<code>定时器</code>对那一数据包计时。</li>
+<li><code>Acknowlegment Number</code> 与<code>延迟确认</code>有关 -&gt; if <code>ACK</code> set</li>
+<li><code>Checksum</code> 与 <code>检验和</code> 有关</li>
+<li><code>Data offset</code> – 数据长度</li>
+<li><code>URG</code> -&gt; 数据紧急标志位</li>
+<li><code>ACK</code> -&gt; 数据确认标识位</li>
+<li><code>PSH</code> -&gt; push</li>
+<li><code>RST</code> -&gt; reset</li>
+<li><code>SYN</code> -&gt; 建立时需要</li>
+<li><code>FIN</code> -&gt; 结束</li>
+</ul>
+<h3 id="TCP状态"><a href="#TCP状态" class="headerlink" title="TCP状态"></a>TCP状态</h3><p><img src="/images/TCP_states.jpg" alt></p>
 
       
     </div>
@@ -708,7 +738,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-01"><span class="nav-number">1.</span> <span class="nav-text">Day 01</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#效率"><span class="nav-number">1.1.</span> <span class="nav-text">效率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预备知识"><span class="nav-number">1.2.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP网际协议详解"><span class="nav-number">1.3.</span> <span class="nav-text">IP网际协议详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI模型（Open-System-Interconnection-model）"><span class="nav-number">1.3.1.</span> <span class="nav-text">OSI模型（Open System Interconnection model）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP模型"><span class="nav-number">1.3.2.</span> <span class="nav-text">IP模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据进入协议栈的封装"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">数据进入协议栈的封装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IP特点"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">IP特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IP数据报格式首部字段"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">IP数据报格式首部字段</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Day-01"><span class="nav-number">1.</span> <span class="nav-text">Day 01</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#效率"><span class="nav-number">1.1.</span> <span class="nav-text">效率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预备知识"><span class="nav-number">1.2.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP网际协议详解"><span class="nav-number">1.3.</span> <span class="nav-text">IP网际协议详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI模型（Open-System-Interconnection-model）"><span class="nav-number">1.3.1.</span> <span class="nav-text">OSI模型（Open System Interconnection model）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP模型"><span class="nav-number">1.3.2.</span> <span class="nav-text">IP模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据进入协议栈的封装"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">数据进入协议栈的封装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IP特点"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">IP特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IP数据报格式首部字段"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">IP数据报格式首部字段</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP详解"><span class="nav-number">1.4.</span> <span class="nav-text">TCP详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP如何利用IP"><span class="nav-number">1.4.1.</span> <span class="nav-text">TCP如何利用IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP首部"><span class="nav-number">1.4.2.</span> <span class="nav-text">TCP首部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP状态"><span class="nav-number">1.4.3.</span> <span class="nav-text">TCP状态</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

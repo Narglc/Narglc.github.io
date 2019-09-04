@@ -439,11 +439,39 @@
 </blockquote>
 <h4 id="IP特点"><a href="#IP特点" class="headerlink" title="IP特点"></a>IP特点</h4><ul>
 <li>不可靠（unreliable）</li>
-<li>无连接（connectionless）<h4 id="IP数据报格式首部字段"><a href="#IP数据报格式首部字段" class="headerlink" title="IP数据报格式首部字段"></a>IP数据报格式首部字段</h4><img src="/images/IP_telegraph.jpg" alt><br><font color="red"><b>注意:【小小】</b></font> 网络数据都是按照<strong>Big Endian【大端存储】</strong>传送的；家用操作系统都是<strong>Littele Endian</strong>数据存储。<br><img src="/images/Big_Small_Endian.jpg" alt="Big_Small_Endian.jpg"></li>
+<li>无连接（connectionless）</li>
 </ul>
-<p><strong>思考题</strong>：</p>
+<h4 id="IP数据报格式首部字段"><a href="#IP数据报格式首部字段" class="headerlink" title="IP数据报格式首部字段"></a>IP数据报格式首部字段</h4><p><img src="/images/IP_telegraph.jpg" alt><br><font color="red"><b>注意:【小小】</b></font> 网络数据都是按照<strong>Big Endian【大端存储】</strong>传送的；家用操作系统都是<strong>Littele Endian</strong>数据存储。<br><img src="/images/Big_Small_Endian.jpg" alt="Big_Small_Endian.jpg"><br><strong>思考题</strong>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">isLittleEndianSystem</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="TCP详解"><a href="#TCP详解" class="headerlink" title="TCP详解"></a>TCP详解</h2><h3 id="TCP如何利用IP"><a href="#TCP如何利用IP" class="headerlink" title="TCP如何利用IP"></a>TCP如何利用IP</h3><ul>
+<li>IP的特点</li>
+<li>TCP将应用程序的传输数据分割成合适的数据块</li>
+<li>定时器</li>
+<li>延迟确认</li>
+<li>检验和CRC</li>
+<li>流量控制</li>
+</ul>
+<h3 id="TCP首部"><a href="#TCP首部" class="headerlink" title="TCP首部"></a>TCP首部</h3><p><img src="/images/TCP_header.jpg" alt><br><font color="red"><b>注意:</b></font> IP首部20Byte，TCP首部20Byte，如需在网络传输，还需填充6Byte。</p>
+<blockquote>
+<p>所谓的<code>Socket</code> , 即<code>ip+port</code></p>
+<blockquote>
+<p>ip 来自 IP首部<br>port 来自 TCP首部</p>
+</blockquote>
+</blockquote>
+<ul>
+<li><code>Sequence Number</code> 用于标记<code>定时器</code>对那一数据包计时。</li>
+<li><code>Acknowlegment Number</code> 与<code>延迟确认</code>有关 -&gt; if <code>ACK</code> set</li>
+<li><code>Checksum</code> 与 <code>检验和</code> 有关</li>
+<li><code>Data offset</code> – 数据长度</li>
+<li><code>URG</code> -&gt; 数据紧急标志位</li>
+<li><code>ACK</code> -&gt; 数据确认标识位</li>
+<li><code>PSH</code> -&gt; push</li>
+<li><code>RST</code> -&gt; reset</li>
+<li><code>SYN</code> -&gt; 建立时需要</li>
+<li><code>FIN</code> -&gt; 结束</li>
+</ul>
+<h3 id="TCP状态"><a href="#TCP状态" class="headerlink" title="TCP状态"></a>TCP状态</h3><p><img src="/images/TCP_states.jpg" alt></p>
 
           
         
@@ -631,7 +659,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/31/使用hexo+github搭建博客/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/使用hexo+github搭建博客/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Narglc Yu">
@@ -650,7 +678,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/31/使用hexo+github搭建博客/" itemprop="url">使用hexo+github搭建博客 笔记</a></h1>
+                <a class="post-title-link" href="/2019/09/01/使用hexo+github搭建博客/" itemprop="url">使用hexo+github搭建博客 笔记</a></h1>
         
 
         <div class="post-meta">
@@ -662,8 +690,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-31T00:21:12+08:00">
-                2019-08-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T20:33:17+08:00">
+                2019-09-01
               </time>
             
 
@@ -703,8 +731,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/08/31/使用hexo+github搭建博客/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/31/使用hexo+github搭建博客/" itemprop="commentCount"></span>
+                <a href="/2019/09/01/使用hexo+github搭建博客/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/01/使用hexo+github搭建博客/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -951,7 +979,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-30T22:39:41+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-30T22:52:17+08:00">
                 2019-08-30
               </time>
             
