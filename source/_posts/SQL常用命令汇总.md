@@ -1,5 +1,5 @@
 ---
-title: sql-note
+title: SQL常用命令汇总
 date: 2019-09-03 23:13:32
 tags:
 categories:
