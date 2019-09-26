@@ -16,8 +16,11 @@ type: "schedule"
 ---
 ## Quiz
 ![](/images/Quiz.jpg)
-![](/images/Quiz002.jpg)
-
+![](/images/Quiz004.jpg)
+![](/images/Quiz005.jpg)
+![](/images/Quiz006.jpg)
+![](/images/Quiz007.jpg)
+> Question: 是否存在资源泄露？
 --- 
 ## 待学汇总
 1. TCP/IP （网络编程都是此种协议）

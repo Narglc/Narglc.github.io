@@ -121,6 +121,201 @@ static bool isLittleEndianSystem(){
 ### TCP状态
 ![](/images/TCP_states.jpg)
 
+### TPC状态变迁
+![](/images/TCP_state_change.jpg)
+> 蓝线--server；棕线--client；虚线--异常
+
+### TCP的连接（三次握手）
+![](/images/TCP_three_shakehand.jpg)
+
+### TCP连接的断开（四次握手）
+![](/images/TCP_four_shakehands.jpg)
+> **1.为什么断开要四次握手？**
+> > 全双工,两边都需要确认
+> > 主动断开方，会进入`TIME_WAIT`状态
+
+### TCP数据相互传送
+- 交互式(小数据)与成块的数据两种
+- 时间延迟确认
+- Nagle算法\[小数据积攒后再发送\](游戏开发一般关闭这个算法)
+- 接收窗口大小
+
+### TCP内部使用的定时器
+- 重传定时器
+- 坚持定时器(Persist)
+- 保活定时器(KeepAlive)<建议不开启>
+- 2MSL定时器(TIME_WAIT)
+
+## 实战
+### Wireshark使用
+> 需安装WinCap方能使用
+#### 筛选器
+`ip.addr==115.239.210.27 && ip.port==80`
+
+## Socket API (Berkeley sockets, BSD Socket)
+### 头文件
+![](/images/Socket_header.jpg)
+### API函数
+![](/images/API_func.jpg)
+![](/images/API_func2.jpg)
+  
+## 服务器和客户端的例子
+### TCP Socket 基本流程图
+![](/images/TCP_Socket_flow_diagram.jpg)
+### Code：
+#### Server_main.cpp
+```cpp
+#include<sys/types.h>
+#include<sys/socket.h>
+#include<netinet/in.h>
+#include<arpa/inet.h>
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<unistd.h>
+
+int main(int argc, char** argv)
+{
+  char hello[] = "hello world";
+  struct sockaddr_in sa;
+  int SocketFD = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
+
+  if(-1 == SocketFD)
+  {
+    perror("cannot create socket");
+    exit(EXIT_FAILURE);
+  }
+
+  memset(&sa, 0, sizeof sa);
+
+  sa.sin_family = AF_INET;
+  sa.sin_port = htons(2222);
+  sa.sin_addr.s_addr = htonl(INADDR_ANY);
+
+  if(-1 == bind(SocketFD, (struct sockaddr*)&sa, sizeof sa))
+  {
+    perror("bind failed");
+    close(SocketFD);
+    exit(EXIT_FAILURE);
+  }
+
+  if(-1 == listen(SocketFD, 10))
+  {
+    perror("listen failed");
+    close(SocketFD);
+    exit(EXIT_FAILURE);
+  }
+
+  for(;;)
+  {
+    int ConnectFD = accept(SocketFD, NULL, NULL);
+
+    if(0 > ConnectFD)
+    {
+      perror("accept failed");
+      close(SocketFD);
+      exit(EXIT_FAILURE);
+    }
+
+    int writeSize = 0;
+    size_t totalWrite = 0;
+    while(totalWrite < sizeof(hello))
+    {
+      writeSize = 
+        write(ConnectFD, hello + totalWrite, sizeof(hello) - totalWrite);
+      if(-1 == writeSize)
+      {
+        perror("write failed");
+        close(ConnectFD);
+        close(SocketFD);
+        exit(EXIT_FAILURE);
+      }
+      totalWrite += writeSize;
+    }
+
+    if(-1 == shutdown(ConnectFD, SHUT_RDWR))
+    {
+      perror("shutdown failed");
+      close(ConnectFD);
+      close(SocketFD);
+      exit(EXIT_FAILURE);
+    }
+    close(ConnectFD);
+  }
+  close(SocketFD);
+  return EXIT_SUCCESS; 
+}
+```
+#### Client_main.cpp
+```cpp
+#include<sys/types.h>
+#include<sys/socket.h>
+#include<netinet/in.h>
+#include<arpa/inet.h>
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<unistd.h>
+
+int main(int argc, char** argv)
+{
+  struct sockaddr_in sa;
+  int res;
+  int SocketFD = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
+
+  if(-1 == SocketFD)
+  {
+    perror("cannot create socket");
+    exit(EXIT_FAILURE);
+  }
+
+  memset(&sa, 0, sizeof sa);
+
+  sa.sin_family = AF_INET;
+  sa.sin_port = htons(2222);
+  res = inet_pton(AF_INET, "127.0.0.1", &sa.sin_addr);
+
+  if(-1 == connect(SocketFD, (struct sockaddr*)&sa, sizeof sa))
+  {
+    perror("connect failed");
+    close(SocketFD);
+    exit(EXIT_FAILURE);
+  }
+
+  char buffer[512];
+  int totalRead = 0;
+  for(;;)
+  {
+    int readSize = 0;
+    readSize = read(SocketFD, buffer + totalRead, sizeof(buffer)-totalRead);
+    if(readSize == 0)
+    {
+      break;
+    }
+    else if(readSize == -1)
+    {
+      perror("read failed");
+      close(SocketFD);
+      exit(EXIT_FAILURE);
+    }
+    totalRead += readSize;
+  }
+  buffer[totalRead] = 0;
+  printf("get from server: %s\n",buffer);
+
+  (void)shutdown(SocketFD, SHUT_RDWR);
+
+  close(SocketFD);
+  return EXIT_SUCCESS;
+}
+```
+
+
+
+
+
 
 
 
