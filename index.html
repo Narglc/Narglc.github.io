@@ -314,6 +314,238 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/28/cmake学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Narglc Yu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Narlgc's Notebook">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/28/cmake学习笔记/" itemprop="url">cmake学习笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-28T21:53:06+08:00">
+                2019-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/28/cmake学习笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/28/cmake学习笔记/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="CMake笔记"><a href="#CMake笔记" class="headerlink" title="CMake笔记"></a>CMake笔记</h1><p>[TOC]</p>
+<h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p><strong>CMake</strong>意为<strong>cross-platform make</strong>，可用于管理c/c++工程。<br>CMake<strong>解析</strong>配置文件CMakeLists.txt生成Makefile，相比直接用Makefile管理工程，CMake更灵活和简单。</p>
+<h2 id="最简单的CMakeLists-txt"><a href="#最简单的CMakeLists-txt" class="headerlink" title="最简单的CMakeLists.txt"></a>最简单的CMakeLists.txt</h2><pre><code>PROJECT(HELLO)    //更简单，这一句都可以省略!!!
+ADD_EXECUTABLE(hello main.c)</code></pre><p>然后输入<figure class="highlight plain"><figcaption><span>-jN```（多线程编译：例如make -j4，即使用4个线程编译）</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 内置变量</span><br><span class="line">变量|说明</span><br><span class="line">---:|---</span><br><span class="line">CMAKE_SOURCE_DIR|</span><br><span class="line">PROJECT_SOURCE_DIR|三条等价</span><br><span class="line">[projectname]_SOURCE_DIR|projectname通过```PROJECT(projectName)```定义</span><br><span class="line">CMAKE_BINARY_DIR|</span><br><span class="line">PROJECT_BINARY_DIR|三条等价</span><br><span class="line">[projectname]_BINARY_DIR|projectname通过```PROJECT(projectName)```定义</span><br><span class="line">CMAKE_CURRENT_SOURCE_DIR|当前处理的 CMakeLists.txt 所在的路径</span><br><span class="line">CMAKE_CURRRENT_BINARY_DIR|如果是 in-source 编译，它跟 CMAKE_CURRENT_SOURCE_DIR 一致;&lt;br&gt;如果是 out-ofsource 编译，他指的是 target 编译目录</span><br><span class="line">CMAKE_CURRENT_LIST_FILE|调用这个变量的 CMakeLists.txt 的完整路径</span><br><span class="line">CMAKE_CURRENT_LIST_LINE|这个变量所在的行</span><br><span class="line">**CMAKE_MODULE_PATH**|定义自己的 cmake 模块所在的路径&lt;br&gt;为了让 cmake 在处理CMakeLists.txt 时找到这些模块，你需要通过 SET 指令，将自己的 cmake 模块路径设置一下:&lt;br&gt;```SET(CMAKE_MODULE_PATH $&#123;PROJECT_SOURCE_DIR&#125;/cmake)```&lt;br&gt;此时可以通过**INCLUDE**指令来调用自己的模块</span><br><span class="line">EXECUTABLE_OUTPUT_PATH|更改生成的可执行文件路径</span><br><span class="line">LIBRARY_OUTPUT_PATH|更改生成的库文件路径</span><br><span class="line">PROJECT_NAME|返回通过 **PROJECT** 指令定义的项目名称</span><br><span class="line"></span><br><span class="line">## 系统信息</span><br><span class="line">![](img/cmake_systemInfo.jpg)</span><br><span class="line"></span><br><span class="line">- CMAKE_MAJOR_VERSION，CMAKE主版本号，比如2.4.6中的2</span><br><span class="line">- CMAKE_MINOR_VERSION，CMAKE次版本号，比如2.4.6中的4</span><br><span class="line">- CMAKE_PATCH_VERSION，CMAKE补丁等级，比如2.4.6 中的6</span><br><span class="line">- **CMAKE_SYSTEM**，系统名称，比如Linux-2.6.22</span><br><span class="line">- CMAKE_SYSTEM_NAME，不包含版本的系统名，比如Linux</span><br><span class="line">- CMAKE_SYSTEM_VERSION，系统版本，比如2.6.22</span><br><span class="line">- CMAKE_SYSTEM_PROCESSOR，处理器名称，比如i686.</span><br><span class="line">- UNIX，在所有的类UNIX平台为TRUE，包括OS X和cygwin</span><br><span class="line">- WIN32，在所有的win32平台为TRUE，包括cygwin</span><br><span class="line"></span><br><span class="line">## 开关选项</span><br><span class="line">变量|说明</span><br><span class="line">---|---</span><br><span class="line">CMAKE_C_FLAGS|设置 C 编译选项，也可以通过指令 **ADD_DEFINITIONS()**添加</span><br><span class="line">CMAKE_CXX_FLAGS|设置 C++编译选项，也可以通过指令 **ADD_DEFINITIONS()**添加</span><br><span class="line">**注:**</span><br></pre></td></tr></table></figure></p>
+<p>set(CMAKE_CXX_FLAGS “${CMAKE_CXX_FLAGS} -fpermissive”)<br>//g++使用 -fpermissive 参数进行编译，即兼容一些老的语法，但是一些语法错误也会被忽略</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">## 命令</span><br><span class="line">**注意:**</span><br><span class="line">- 参数使用括弧括起，参数之间使用**空格**或**分号**分开。```command(avg1 avg2 ...)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>指令是大小写无关的</strong>，<font color="red" size="5"><strong>参数和变量是大小写相关的</strong></font>。但推荐全部使用大写指令。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>make <strong>clean</strong></td>
+<td><figure class="highlight plain"><figcaption><span>clean```|对构建结果进行**清理**</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**list**常用|```list(APPEND &lt;list&gt; &lt;element&gt; [&lt;element&gt; ...])```|将会在该list之后追加若干元素</span><br><span class="line">|```list(REMOVE_ITEM SRC_LIST a.cpp)```|从SRC_LIST中删除a.cpp</span><br><span class="line">**SET**|```set(CODE_DIR $&#123;PROJECT_SOURCE_DIR&#125;)```&lt;br&gt;```SET(HELLO_SRC main.c)```&lt;br&gt;```SET(HELLO_SRC &quot;main.c&quot;)```|定义变量并赋值,可以接受多个&lt;br&gt;```SET(SRC_LIST main.c t1.c t2.c)</span><br></pre></td></tr></table></figure></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>MESSAGE|<figure class="highlight plain"><figcaption><span>or STATUS or FATAL_ERROR], “message”)```|类似于printf</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">$&#123;&#125;||变量的引用、取值（IF语句中直接变量名取值）</span><br><span class="line">FILE|```FILE(GLOB_RECURSE SRC_LIST &quot;*.cpp&quot;)```|</span><br><span class="line">$ENV&#123;NAME&#125;|```MESSAGE(STATUS “HOME dir: $ENV&#123;HOME&#125;”)```|调用系统的环境变量</span><br><span class="line">SET(ENV&#123;NAME&#125; VAL)||设置环境变量</span><br><span class="line">ADD_DEFINITIONS|```ADD_DEFINITIONS(-DENABLE_DEBUG -DABC)```|向 C/C++编译器添加 **-D** 定义(**相当于添加了#define**)--&gt;添加编译参数</span><br><span class="line">**ADD_DEPENDENCIES**|```ADD_DEPENDENCIES(target-name depend-target1 depend-target2 ...)```|定义 target 依赖的其他 target，确保在编译本 target 之前，其他的 target 已经被构建</span><br><span class="line">**ADD_SUBDIRECTORY**|```ADD_SUBDIRECTORY(source_dir [binary_dir] [EXCLUDE_FROM_ALL])```|向当前工程添加存放源文件的子目录，**并可以指定中间二进制和目标二进制存放的位置**&lt;br&gt;**EXCLUDE_FROM_ALL** 参数的含义是将这个目录从编译过程中排除</span><br><span class="line">ENABLE_TESTING|ENABLE_TESTING()|控制 Makefile 是否构建 test 目标,一般情况这个指令放在工程的主CMakeLists.txt 中.</span><br><span class="line">ADD_TEST|```ADD_TEST(testname Exename arg1 arg2 ...)```|testname 是自定义的 test 名称，Exename 可以是构建的目标文件也可以是外部脚本等等。后面连接传递给可执行文件的参数。如果没有在同一个 CMakeLists.txt 中打开ENABLE_TESTING()指令，任何 ADD_TEST 都是无效的。</span><br><span class="line">AUX_SOURCE_DIRECTORY|```AUX_SOURCE_DIRECTORY(dir SRC_LIST)```|将dir目录下所有源文件列表存储在一个变量SRC_LIST中，被用来自动构建源文件列表</span><br><span class="line">CMAKE_MINIMUM_REQUIRED|```CMAKE_MINIMUM_REQUIRED(VERSION 2.5 FATAL_ERROR)```|如果 cmake 版本小与 2.5，则出现严重错误，整个过程中止</span><br><span class="line">INCLUDE|```INCLUDE(file1 [OPTIONAL])```&lt;br&gt;```INCLUDE(module [OPTIONAL])```|用来载入 CMakeLists.txt 文件，也用于载入预定义的 cmake 模块.&lt;br&gt;**OPTIONAL** 参数的作用是文件**不存在也不会产生错误**</span><br><span class="line">INCLUDE_DIRECTORIES|```INCLUDE_DIRECTORIES(/usr/include/hello)```|用来**向工程添加多个特定的头文件搜索路径**==指定头文件的搜索路径，相当于指定gcc的-I参数</span><br><span class="line">LINK_DIRECTORIES|```LINK_DIRECTORIES(directory1 directory2 ...)```|添加非标准的共享库搜索路径</span><br><span class="line">TARGET_LINK_LIBRARIES|```TARGET_LINK_LIBRARIES(target library1&lt;debug或optimized&gt; library2...)```|为 target 添加需要链接的共享库(动态库、静态库)</span><br><span class="line">ADD_LIBRARY|```ADD_LIBRARY(Hello hello.cxx)```|将hello.cxx编译成静态库如libHello.a</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### ADD\_LIBRARY</span><br><span class="line"></span><br><span class="line">    ADD_LIBRARY(libname [SHARED|STATIC|MODULE] [EXCLUDE_FROM_ALL] source1 source2 ... sourceN)</span><br><span class="line"></span><br><span class="line">##### 类型有三种：</span><br><span class="line"> - SHARED 动态库 **后缀为.so** --&gt;生成文件**lib[libname].so**</span><br><span class="line"> - STATIC 静态库 **后缀为.a**  --&gt;生成文件**lib[libname].a**</span><br><span class="line"> - MODULE 在使用 dyld 的系统有效，如果不支持 dyld，则被当作 SHARED 对待</span><br><span class="line"></span><br><span class="line">**EXCLUDE\_FROM\_ALL** 参数的意思是这个库不会被默认构建，除非有其他的组件依赖或者手工构建。</span><br><span class="line"></span><br><span class="line">    SET(LIBHELLO_SRC hello.c)</span><br><span class="line">    ADD_LIBRARY(hello SHARED $&#123;LIBHELLO_SRC&#125;)   //动态库</span><br><span class="line">    ADD_LIBRARY(hello STATIC $&#123;LIBHELLO_SRC&#125;)    //静态库</span><br><span class="line">    ADD_EXECUTABLE(demo main.c)</span><br><span class="line">    TARGET_LINK_LIBRARIES(demo hello)           //hello为一个库</span><br><span class="line"></span><br><span class="line">#### INCLUDE\_DIRECTORIES</span><br><span class="line"></span><br><span class="line">    INCLUDE_DIRECTORIES([AFTER|BEFORE] [SYSTEM] dir1 dir2 ...)</span><br><span class="line"></span><br><span class="line">用来**向工程添加多个特定的头文件搜索路径**，路径之间用空格分割，如果路径中包含了空格，可以使用双引号将它括起来，默认的行为是追加到当前的头文件搜索路径的后面。你可以通过两种方式来进行控制搜索路径添加的方式：</span><br><span class="line"> 1. **CMAKE_INCLUDE_DIRECTORIES_BEFORE**，通过 SET 这个 cmake 变量为 on，可以将添加的头文件搜索路径放在已有路径的前面。（另一个变量**CMAKE_INCLUDE_DIRECTORIES_BEFORE**也可使用!!）</span><br><span class="line"> 2. 通过 AFTER 或者 BEFORE 参数，也可以控制是追加还是置前。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### ADD\_DEFINITIONS</span><br><span class="line">    add_definitions(</span><br><span class="line">        -D__SHORT_FILE__=__FILE__</span><br><span class="line">    )</span><br><span class="line">等价于</span><br><span class="line"></span><br><span class="line">    gcc -D__SHORT_FILE__=__FILE__ main.c -o demo</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">    cmake -D__SHORT__FILE__=__FILE__ main.c -o demo</span><br><span class="line">    cmake -DMY_VAR=hello .</span><br><span class="line"></span><br><span class="line">或者在```main.c```头部添加了</span><br><span class="line">    #define __SHORT_FILE__ __FILE__</span><br><span class="line"></span><br><span class="line">**注:** **ADD_DEFINITIONS**本是**添加编译参数**，如：</span><br><span class="line">&gt; **add_definitions(-DDEBUG)** 将在gcc命令行添加DEBUG宏定义；</span><br><span class="line">&gt; **add_definitions( “-Wall -ansi –pedantic –g”)** 添加多个编译参数</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### ENABLE\_TESTING &amp; ADD\_TEST</span><br><span class="line"></span><br><span class="line">    ENABLE_TESTING()</span><br><span class="line">    ADD_TEST(mytest $&#123;PROJECT_BINARY_DIR&#125;/BIN/main 2 10)</span><br><span class="line">    SET_TESTS_PROPERTIES(mytest PROPERTIES PASS_REGULAR_EXPRESSION &quot;1024&quot;)  \\用来测试输出中是否包含后面的字符串</span><br><span class="line"></span><br><span class="line">#### AUX\_SOURCE\_DIRECTORY</span><br><span class="line">    AUX_SOURCE_DIRECTORY(. SRC_LIST)</span><br><span class="line">    ADD_EXECUTABLE(main $&#123;SRC_LIST&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## FILE指令</span><br><span class="line">![](img/cmake_FILE.jpg)</span><br></pre></td></tr></table></figure></p>
+<p>FILE(WRITE filename “message towrite”… )<br>FILE(APPEND filename “message towrite”… )<br>FILE(READ filename variable)<br>FILE(GLOB variable [RELATIVE path][globbing expressions]…)<br>FILE(GLOB_RECURSE variable [RELATIVE path] [globbingexpressions]…)<br>FILE(REMOVE [directory]…)<br>FILE(REMOVE_RECURSE [directory]…)<br>FILE(MAKE_DIRECTORY [directory]…)<br>FILE(RELATIVE_PATH variable directory file)<br>FILE(TO_CMAKE_PATH path result)<br>FILE(TO_NATIVE_PATH path result)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**注：** ```FILE(GLOB_RECURSE SRC_LIST &quot;*.cpp&quot;)```即将该目录下及所有子文件夹内的++所有++后缀为**.cpp**的文件的路径，全部放入**SRC_LIST**变量中。</span><br><span class="line"></span><br><span class="line">    查找当前目录下所有的源文件并保存到SRC_LIST变量里</span><br><span class="line">    aux_source_directory(. SRC_LIST)</span><br><span class="line">    查找src目录下所有以cmake开头的文件并保存到CMAKE_FILES变量里</span><br><span class="line">    file(GLOB CMAKE_FILES &quot;src/cmake*&quot;)</span><br><span class="line">    file命令同时支持目录递归查找</span><br><span class="line">    file(GLOB_RECURSE CMAKE_FILES &quot;src/cmake*&quot;)</span><br><span class="line"></span><br><span class="line">## IF</span><br><span class="line"></span><br><span class="line">    IF(expression)</span><br><span class="line">        # THEN section.</span><br><span class="line">        COMMAND1(ARGS ...)COMMAND2(ARGS ...)</span><br><span class="line">        ...</span><br><span class="line">    ELSE(expression)</span><br><span class="line">        # ELSE section.</span><br><span class="line">        COMMAND1(ARGS ...)</span><br><span class="line">        COMMAND2(ARGS ...)</span><br><span class="line">        ...</span><br><span class="line">    ENDIF(expression)</span><br><span class="line"></span><br><span class="line">表达式的使用方法如下：</span><br><span class="line"></span><br><span class="line">    IF(var)，如果变量不是：空，0，N, NO, OFF, FALSE, NOTFOUND 或</span><br><span class="line">    &lt;var&gt;_NOTFOUND 时，表达式为真。</span><br><span class="line">    IF(NOT var )，与上述条件相反。</span><br><span class="line">    IF(var1 AND var2)，当两个变量都为真是为真。</span><br><span class="line">    IF(var1 OR var2)，当两个变量其中一个为真时为真。</span><br><span class="line">    IF(COMMAND cmd)，当给定的 cmd 确实是命令并可以调用是为真。</span><br><span class="line">    IF(EXISTS dir)或者 IF(EXISTS file)，当目录名或者文件名存在时为真。</span><br><span class="line">    IF(file1 IS_NEWER_THAN file2)，当 file1 比 file2 新，或者 file1/file2 其</span><br><span class="line">    中有一个不存在时为真，文件名请使用完整路径。</span><br><span class="line">    IF(IS_DIRECTORY dirname)，当 dirname 是目录时，为真。</span><br><span class="line">    IF(variable MATCHES regex)</span><br><span class="line">    IF(string MATCHES regex)</span><br><span class="line">当给定的变量或者字符串能够匹配正则表达式 regex 时为真。比如：</span><br><span class="line"></span><br><span class="line">    IF(&quot;hello&quot; MATCHES &quot;ell&quot;)</span><br><span class="line">        MESSAGE(&quot;true&quot;)</span><br><span class="line">    ENDIF(&quot;hello&quot; MATCHES &quot;ell&quot;)IF(variable LESS number)</span><br><span class="line">   </span><br><span class="line">    IF(string LESS number)</span><br><span class="line">    IF(variable GREATER number)</span><br><span class="line">    IF(string GREATER number)</span><br><span class="line">    IF(variable EQUAL number)</span><br><span class="line">    IF(string EQUAL number)</span><br><span class="line"></span><br><span class="line">数字比较表达式</span><br><span class="line"></span><br><span class="line">    IF(variable STRLESS string)</span><br><span class="line">    IF(string STRLESS string)</span><br><span class="line">    IF(variable STRGREATER string)</span><br><span class="line">    IF(string STRGREATER string)</span><br><span class="line">    IF(variable STREQUAL string)</span><br><span class="line">    IF(string STREQUAL string)</span><br><span class="line"></span><br><span class="line">按照字母序的排列进行比较.</span><br><span class="line"></span><br><span class="line">    IF(DEFINED variable)，如果变量被定义，为真。</span><br><span class="line"></span><br><span class="line">一个小例子，用来判断平台差异：</span><br><span class="line"></span><br><span class="line">    IF(WIN32)</span><br><span class="line">           MESSAGE(STATUS “This is windows.”)</span><br><span class="line">        #作一些 Windows 相关的操作</span><br><span class="line">    ELSE(WIN32)   //容易引起歧义</span><br><span class="line">        MESSAGE(STATUS “This is not windows”)</span><br><span class="line">        #作一些非 Windows 相关的操作</span><br><span class="line">    ENDIF(WIN32)</span><br><span class="line"></span><br><span class="line">或者配合```SET(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)```使用后，上述语句可简化为如下形式：</span><br><span class="line"></span><br><span class="line">    IF(WIN32)</span><br><span class="line">    ELSE()</span><br><span class="line">    ENDIF()</span><br><span class="line"></span><br><span class="line">如果配合 ELSEIF 使用，可能的写法是这样:</span><br><span class="line"></span><br><span class="line">    IF(WIN32)</span><br><span class="line">        #do something related to WIN32</span><br><span class="line">    ELSEIF(UNIX)</span><br><span class="line">        #do something related to UNIX</span><br><span class="line">    ELSEIF(APPLE)</span><br><span class="line">        #do something related to APPLE</span><br><span class="line">    ENDIF(WIN32)</span><br><span class="line"></span><br><span class="line">## WHILE</span><br><span class="line">    WHILE(condition)</span><br><span class="line">        COMMAND1(ARGS ...)</span><br><span class="line">        COMMAND2(ARGS ...)</span><br><span class="line">        ...</span><br><span class="line">    ENDWHILE(condition)</span><br><span class="line"></span><br><span class="line">## FOREACH</span><br><span class="line"> 1. 列表</span><br></pre></td></tr></table></figure>
+
+<pre><code>AUX_SOURCE_DIRECTORY(. SRC_LIST)
+FOREACH(F ${SRC_LIST})
+MESSAGE(${F})
+ENDFOREACH(F)</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2. 范围</span><br></pre></td></tr></table></figure>
+
+<pre><code>FOREACH(VAR RANGE 10)  //从0到10以1步进
+MESSAGE(${VAR})
+ENDFOREACH(VAR)</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3. 范围和步进</span><br></pre></td></tr></table></figure>
+
+<pre><code>FOREACH(A RANGE 5 15 3)  //从5开始到15结束，以3为步进
+MESSAGE(${A})
+ENDFOREACH(A)</code></pre><p>````<br><strong>注:</strong><font color="red">直到遇到<strong>ENDFOREACH</strong>指令，整个语句块才会得到真正的执行。</font></p>
+<h2 id="内部构建-vs-外部构建"><a href="#内部构建-vs-外部构建" class="headerlink" title="内部构建 vs 外部构建"></a>内部构建 vs 外部构建</h2><p>构建分为<strong>内部构建(in-sourcebuild)</strong>和<strong>外部构建(out-of-source build)</strong>。<br><strong>外部构建</strong>一个最大的好处是，<strong>对于原有的工程没有任何影响，所有动作全部发生在编译目录</strong>。而<strong>cmake强烈推荐的是<em>外部构建</em></strong>。</p>
+<p><img src="img/out-of-source-build.jpg" alt></p>
+<p>|——build</p>
+<p>|——CMakeLists.txt</p>
+<p>|——CMakeLists.txt.bak</p>
+<p>|<strong>\</strong>main.c</p>
+<p>根目录下包含源文件<em>.c、CMakeList.txt。然后创建*</em>build**文件夹，并<code>cd build</code>下，再执行<code>cmake ..</code>，再<code>make -j4</code>.</p>
+<p><strong>注:</strong> 通过外部编译进行工程构建，<strong>HELLO_SOURCE_DIR</strong>仍然指代工程路径，即<code>/backup/cmake/t1</code>;而 <strong>HELLO_BINARY_DIR</strong> 则指代编译路径，即<code>/backup/cmake/t1/build</code>.</p>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><p>1）  怎样获得一个目录下的所有源文件</p>
+<pre><code>&gt;&gt;  aux_source_directory(&lt;dir&gt; &lt;variable&gt;)
+&gt;&gt;  将dir中所有源文件（不包括头文件）保存到变量variable中，然后可以add_executable (ss7gw ${variable})这样使用。</code></pre><p>2）  怎样指定项目编译目标<br>    &gt;&gt;  project命令指定</p>
+<p>3）  怎样添加动态库和静态库<br>    &gt;&gt; target_link_libraries命令添加即可</p>
+<p>4）  怎样在执行CMAKE时打印消息<br>    &gt;&gt; message([SEND_ERROR | STATUS | FATAL_ERROR] “message to display” …)<br>    &gt;&gt; 注意大小写</p>
+<p>5）  怎样指定头文件与库文件路径<br>    &gt;&gt; include_directories与link_directories<br>    &gt;&gt;可以多次调用以设置多个路径<br>    &gt;&gt; link_directories仅对其后面的targets起作用</p>
+<p>6）  怎样区分debug、release版本<br>    &gt;&gt;建立debug/release两目录，分别在其中执行cmake -DCMAKE_BUILD_TYPE=Debug（或Release），需要编译不同版本时进入不同目录执行make即可；<br>    Debug版会使用参数-g；Release版使用-O3 –DNDEBUG<br>    &gt;&gt; 另一种设置方法——例如DEBUG版设置编译参数DDEBUG</p>
+<pre><code>IF(DEBUG_mode)
+    add_definitions(-DDEBUG)
+ENDIF()
+在执行cmake时增加参数即可，例如cmake -D DEBUG_mode=ON</code></pre><p>7）  怎样设置条件编译<br>例如debug版设置编译选项DEBUG，并且更改不应改变CMakelist.txt</p>
+<pre><code>&gt;&gt; 使用option command，eg：
+
+option(DEBUG_mode &quot;ON for debug or OFF for release&quot; ON)
+IF(DEBUG_mode)
+    add_definitions(-DDEBUG)
+ENDIF()
+
+&gt;&gt; 使其生效的方法：首先cmake生成makefile，然后make edit_cache编辑编译选项；Linux下会打开一个文本框，可以更改，该完后再make生成目标文件——emacs不支持make edit_cache；
+&gt;&gt; 局限：这种方法不能直接设置生成的makefile，而是必须使用命令在make前设置参数；对于debug、release版本，相当于需要两个目录，分别先cmake一次，然后分别make edit_cache一次；
+&gt;&gt; 期望的效果：在执行cmake时直接通过参数指定一个开关项，生成相应的makefile——可以这样做，例如cmake –DDEBUGVERSION=ON</code></pre><p>8）  怎样添加编译宏定义<br>    &gt;&gt; 使用add_definitions命令，见命令部分说明</p>
+<p>9）  怎样添加编译依赖项<br>    用于确保编译目标项目前依赖项必须先构建好<br>    &gt;&gt;add_dependencies</p>
+<p>10） 怎样指定目标文件目录<br>    &gt;&gt; 建立一个新的目录，在该目录中执行cmake生成Makefile文件，这样编译结果会保存在该目录——类似<br>    &gt;&gt; SET_TARGET_PROPERTIES(ss7gw PROPERTIES<br>                          RUNTIME_OUTPUT_DIRECTORY “${BIN_DIR}”)</p>
+<p>11） 很多文件夹，难道需要把每个文件夹编译成一个库文件？<br>    &gt;&gt; 可以不在子目录中使用CMakeList.txt，直接在上层目录中指定子目录</p>
+<p>12）        怎样设定依赖的cmake版本<br>    &gt;&gt; cmake_minimum_required(VERSION 2.6)</p>
+<p>13）        相对路径怎么指定<br>    &gt;&gt; ${projectname_SOURCE_DIR}表示根源文件目录，${ projectname _BINARY_DIR}表示根二进制文件目录？</p>
+<p>14）        怎样设置编译中间文件的目录<br>    &gt;&gt; TBD</p>
+<p>15）        怎样在IF语句中使用字串或数字比较<br>    &gt;&gt;数字比较LESS、GREATER、EQUAL，字串比STRLESS、STRGREATER、STREQUAL，<br>    &gt;&gt; Eg：</p>
+<pre><code>set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
+set(AAA abc)
+IF(AAA STREQUAL abc)
+    message(STATUS &quot;true&quot;)   #应该打印true
+ENDIF()</code></pre><p>16）        更改h文件时是否只编译必须的cpp文件<br>    &gt;&gt; 是</p>
+<p>17）        机器上安装了VC7和VC8，CMAKE会自动搜索编译器，但是怎样指定某个版本？<br>    &gt;&gt; TBD</p>
+<p>18）        怎样根据OS指定编译选项<br>    &gt;&gt; IF( APPLE ); IF( UNIX ); IF( WIN32 )</p>
+<p>19）        能否自动执行某些编译前、后命令？<br>    &gt;&gt; 可以，TBD</p>
+<p>20）        怎样打印make的输出<br>    &gt;&gt; make VERBOSE=1  #看到 make 构建的详细过程</p>
+<hr>
+<h2 id="还未吃透！！！"><a href="#还未吃透！！！" class="headerlink" title="还未吃透！！！"></a>还未吃透！！！</h2><p>###包含目录和链接目录<br>将./include和./abc加入包含目录列表</p>
+<pre><code>include_directories(
+    ./include
+    ./abc
+)</code></pre><p>将./lib加入编译器链接阶段的搜索目录列表</p>
+<pre><code>link_directories(
+    ./lib
+)</code></pre><h3 id="添加生成目标"><a href="#添加生成目标" class="headerlink" title="添加生成目标"></a>添加生成目标</h3><p>使用SRC_LIST源文件列表里的文件生成一个可执行文件hello</p>
+<pre><code>add_executable(hello ${SRC_LIST})</code></pre><p>使用SRC_LIST源文件列表里的文件生成一个静态链接库libhello.a</p>
+<pre><code>add_library(hello STATIC ${SRC_LIST})</code></pre><p>使用SRC_LIST源文件列表里的文件生成一个动态链接库libhello.so</p>
+<pre><code>add_library(hello SHARED ${SRC_LIST})</code></pre><p>将若干库文件链接到生成的目标hello(libhello.a或libhello.so)</p>
+<pre><code>target_link_libraries(hello A B.a C.so)</code></pre><p>需要注意的是，target_link_libraries里库文件的顺序符合gcc链接顺序的规则，即被依赖的库放在依赖它的库的后面，比如上面的命令里，libA.so可能依赖于libB.a和libC.so，如果顺序有错，链接时会报错。还有一点，B.a会告诉CMake优先使用静态链接库libB.a，C.so会告诉CMake优先使用动态链接库libC.so，也可直接使用库文件的相对路径或绝对路径。使用绝对路径的好处在于，当依赖的库被更新时，make的时候也会重新链接。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      <div>    
+       
+       
+      </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/04/学习笔记-C-服务器编程开发/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1189,7 +1421,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
