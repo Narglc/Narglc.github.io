@@ -7,41 +7,37 @@ categories:
 
 # CMake笔记
 
-[TOC]
-
 ## Background
 **CMake**意为**cross-platform make**，可用于管理c/c++工程。
 CMake**解析**配置文件CMakeLists.txt生成Makefile，相比直接用Makefile管理工程，CMake更灵活和简单。
 
 ## 最简单的CMakeLists.txt
+```cmake
+PROJECT(HELLO)    //更简单，这一句都可以省略!!!
+ADD_EXECUTABLE(hello main.c)
+```
 
-    PROJECT(HELLO)    //更简单，这一句都可以省略!!!
-    ADD_EXECUTABLE(hello main.c)
-
-
-然后输入```make```（单线程编译）或者```make -jN```（多线程编译：例如make -j4，即使用4个线程编译）
+然后执行`cmake .`,后输入`make`（单线程编译）或者`make -jN`（多线程编译：例如make -j4，即使用4个线程编译）
 
 ## 内置变量
 变量|说明
 ---:|---
 CMAKE_SOURCE_DIR|
 PROJECT_SOURCE_DIR|三条等价
-[projectname]_SOURCE_DIR|projectname通过```PROJECT(projectName)```定义
+[projectname]_SOURCE_DIR|projectname通过`PROJECT(projectName)`定义
 CMAKE_BINARY_DIR|
 PROJECT_BINARY_DIR|三条等价
-[projectname]_BINARY_DIR|projectname通过```PROJECT(projectName)```定义
+[projectname]_BINARY_DIR|projectname通过`PROJECT(projectName)`定义
 CMAKE_CURRENT_SOURCE_DIR|当前处理的 CMakeLists.txt 所在的路径
 CMAKE_CURRRENT_BINARY_DIR|如果是 in-source 编译，它跟 CMAKE_CURRENT_SOURCE_DIR 一致;<br>如果是 out-ofsource 编译，他指的是 target 编译目录
 CMAKE_CURRENT_LIST_FILE|调用这个变量的 CMakeLists.txt 的完整路径
 CMAKE_CURRENT_LIST_LINE|这个变量所在的行
-**CMAKE_MODULE_PATH**|定义自己的 cmake 模块所在的路径<br>为了让 cmake 在处理CMakeLists.txt 时找到这些模块，你需要通过 SET 指令，将自己的 cmake 模块路径设置一下:<br>```SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)```<br>此时可以通过**INCLUDE**指令来调用自己的模块
+**CMAKE_MODULE_PATH**|定义自己的 cmake 模块所在的路径<br>为了让 cmake 在处理CMakeLists.txt 时找到这些模块，你需要通过 SET 指令，将自己的 cmake 模块路径设置一下:<br>`SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)`<br>此时可以通过**INCLUDE**指令来调用自己的模块
 EXECUTABLE_OUTPUT_PATH|更改生成的可执行文件路径
 LIBRARY_OUTPUT_PATH|更改生成的库文件路径
 PROJECT_NAME|返回通过 **PROJECT** 指令定义的项目名称
 
 ## 系统信息
-![](img/cmake_systemInfo.jpg)
-
 - CMAKE_MAJOR_VERSION，CMAKE主版本号，比如2.4.6中的2
 - CMAKE_MINOR_VERSION，CMAKE次版本号，比如2.4.6中的4
 - CMAKE_PATCH_VERSION，CMAKE补丁等级，比如2.4.6 中的6
@@ -57,8 +53,9 @@ PROJECT_NAME|返回通过 **PROJECT** 指令定义的项目名称
 ---|---
 CMAKE_C_FLAGS|设置 C 编译选项，也可以通过指令 **ADD_DEFINITIONS()**添加
 CMAKE_CXX_FLAGS|设置 C++编译选项，也可以通过指令 **ADD_DEFINITIONS()**添加
+
 **注:**
-```
+```cmake
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive") 
 //g++使用 -fpermissive 参数进行编译，即兼容一些老的语法，但是一些语法错误也会被忽略
 ```
@@ -66,37 +63,38 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
 
 ## 命令
 **注意:**
-- 参数使用括弧括起，参数之间使用**空格**或**分号**分开。```command(avg1 avg2 ...)```
+- 参数使用括弧括起，参数之间使用**空格**或**分号**分开。`command(avg1 avg2 ...)`
 - **指令是大小写无关的**，<font color=red size=5>**参数和变量是大小写相关的**</font>。但推荐全部使用大写指令。
 
 命令|用例|说明
 ---|---|---
-make **clean**|```make clean```|对构建结果进行**清理**
-**list**常用|```list(APPEND <list> <element> [<element> ...])```|将会在该list之后追加若干元素
-|```list(REMOVE_ITEM SRC_LIST a.cpp)```|从SRC_LIST中删除a.cpp
-**SET**|```set(CODE_DIR ${PROJECT_SOURCE_DIR})```<br>```SET(HELLO_SRC main.c)```<br>```SET(HELLO_SRC "main.c")```|定义变量并赋值,可以接受多个<br>```SET(SRC_LIST main.c t1.c t2.c)```
-MESSAGE|```message([SEND_ERROR or STATUS or FATAL_ERROR], “message”)```|类似于printf
+make **clean**|`make clean`|对构建结果进行**清理**
+**list**常用|`list(APPEND <list> <element> [<element> ...])`|将会在该list之后追加若干元素
+|`list(REMOVE_ITEM SRC_LIST a.cpp)`|从SRC_LIST中删除a.cpp
+**SET**|`set(CODE_DIR ${PROJECT_SOURCE_DIR})`<br>`SET(HELLO_SRC main.c)`<br>`SET(HELLO_SRC "main.c")`|定义变量并赋值,可以接受多个<br>`SET(SRC_LIST main.c t1.c t2.c)`
+MESSAGE|`message([SEND_ERROR or STATUS or FATAL_ERROR], “message”)`|类似于printf
 ${}||变量的引用、取值（IF语句中直接变量名取值）
-FILE|```FILE(GLOB_RECURSE SRC_LIST "*.cpp")```|
-$ENV{NAME}|```MESSAGE(STATUS “HOME dir: $ENV{HOME}”)```|调用系统的环境变量
+FILE|`FILE(GLOB_RECURSE SRC_LIST "*.cpp")`|
+$ENV{NAME}|`MESSAGE(STATUS “HOME dir: $ENV{HOME}”)`|调用系统的环境变量
 SET(ENV{NAME} VAL)||设置环境变量
-ADD_DEFINITIONS|```ADD_DEFINITIONS(-DENABLE_DEBUG -DABC)```|向 C/C++编译器添加 **-D** 定义(**相当于添加了#define**)-->添加编译参数
-**ADD_DEPENDENCIES**|```ADD_DEPENDENCIES(target-name depend-target1 depend-target2 ...)```|定义 target 依赖的其他 target，确保在编译本 target 之前，其他的 target 已经被构建
-**ADD_SUBDIRECTORY**|```ADD_SUBDIRECTORY(source_dir [binary_dir] [EXCLUDE_FROM_ALL])```|向当前工程添加存放源文件的子目录，**并可以指定中间二进制和目标二进制存放的位置**<br>**EXCLUDE_FROM_ALL** 参数的含义是将这个目录从编译过程中排除
+ADD_DEFINITIONS|`ADD_DEFINITIONS(-DENABLE_DEBUG -DABC)`|向 C/C++编译器添加 **-D** 定义(**相当于添加了#define**)-->添加编译参数
+**ADD_DEPENDENCIES**|`ADD_DEPENDENCIES(target-name depend-target1 depend-target2 ...)`|定义 target 依赖的其他 target，确保在编译本 target 之前，其他的 target 已经被构建
+**ADD_SUBDIRECTORY**|`ADD_SUBDIRECTORY(source_dir [binary_dir] [EXCLUDE_FROM_ALL])`|向当前工程添加存放源文件的子目录，**并可以指定中间二进制和目标二进制存放的位置**<br>**EXCLUDE_FROM_ALL** 参数的含义是将这个目录从编译过程中排除
 ENABLE_TESTING|ENABLE_TESTING()|控制 Makefile 是否构建 test 目标,一般情况这个指令放在工程的主CMakeLists.txt 中.
-ADD_TEST|```ADD_TEST(testname Exename arg1 arg2 ...)```|testname 是自定义的 test 名称，Exename 可以是构建的目标文件也可以是外部脚本等等。后面连接传递给可执行文件的参数。如果没有在同一个 CMakeLists.txt 中打开ENABLE_TESTING()指令，任何 ADD_TEST 都是无效的。
-AUX_SOURCE_DIRECTORY|```AUX_SOURCE_DIRECTORY(dir SRC_LIST)```|将dir目录下所有源文件列表存储在一个变量SRC_LIST中，被用来自动构建源文件列表
-CMAKE_MINIMUM_REQUIRED|```CMAKE_MINIMUM_REQUIRED(VERSION 2.5 FATAL_ERROR)```|如果 cmake 版本小与 2.5，则出现严重错误，整个过程中止
-INCLUDE|```INCLUDE(file1 [OPTIONAL])```<br>```INCLUDE(module [OPTIONAL])```|用来载入 CMakeLists.txt 文件，也用于载入预定义的 cmake 模块.<br>**OPTIONAL** 参数的作用是文件**不存在也不会产生错误**
-INCLUDE_DIRECTORIES|```INCLUDE_DIRECTORIES(/usr/include/hello)```|用来**向工程添加多个特定的头文件搜索路径**==指定头文件的搜索路径，相当于指定gcc的-I参数
-LINK_DIRECTORIES|```LINK_DIRECTORIES(directory1 directory2 ...)```|添加非标准的共享库搜索路径
-TARGET_LINK_LIBRARIES|```TARGET_LINK_LIBRARIES(target library1<debug或optimized> library2...)```|为 target 添加需要链接的共享库(动态库、静态库)
-ADD_LIBRARY|```ADD_LIBRARY(Hello hello.cxx)```|将hello.cxx编译成静态库如libHello.a
+ADD_TEST|`ADD_TEST(testname Exename arg1 arg2 ...)`|testname 是自定义的 test 名称，Exename 可以是构建的目标文件也可以是外部脚本等等。后面连接传递给可执行文件的参数。如果没有在同一个 CMakeLists.txt 中打开ENABLE_TESTING()指令，任何 ADD_TEST 都是无效的。
+AUX_SOURCE_DIRECTORY|`AUX_SOURCE_DIRECTORY(dir SRC_LIST)`|将dir目录下所有源文件列表存储在一个变量SRC_LIST中，被用来自动构建源文件列表
+CMAKE_MINIMUM_REQUIRED|`CMAKE_MINIMUM_REQUIRED(VERSION 2.5 FATAL_ERROR)`|如果 cmake 版本小与 2.5，则出现严重错误，整个过程中止
+INCLUDE|`INCLUDE(file1 [OPTIONAL])`<br>`INCLUDE(module [OPTIONAL])`|用来载入 CMakeLists.txt 文件，也用于载入预定义的 cmake 模块.<br>**OPTIONAL** 参数的作用是文件**不存在也不会产生错误**
+INCLUDE_DIRECTORIES|`INCLUDE_DIRECTORIES(/usr/include/hello)`|用来**向工程添加多个特定的头文件搜索路径**==指定头文件的搜索路径，相当于指定gcc的-I参数
+LINK_DIRECTORIES|`LINK_DIRECTORIES(directory1 directory2 ...)`|添加非标准的共享库搜索路径
+TARGET_LINK_LIBRARIES|`TARGET_LINK_LIBRARIES(target library1<debug或optimized> library2...)`|为 target 添加需要链接的共享库(动态库、静态库)
+ADD_LIBRARY|`ADD_LIBRARY(Hello hello.cxx)`|将hello.cxx编译成静态库如libHello.a
 
 
 #### ADD\_LIBRARY
-
-    ADD_LIBRARY(libname [SHARED|STATIC|MODULE] [EXCLUDE_FROM_ALL] source1 source2 ... sourceN)
+```cmake
+ ADD_LIBRARY(libname [SHARED|STATIC|MODULE] [EXCLUDE_FROM_ALL] source1 source2 ... sourceN)
+```
 
 ##### 类型有三种：
  - SHARED 动态库 **后缀为.so** -->生成文件**lib[libname].so**
@@ -105,15 +103,18 @@ ADD_LIBRARY|```ADD_LIBRARY(Hello hello.cxx)```|将hello.cxx编译成静态库如
 
 **EXCLUDE\_FROM\_ALL** 参数的意思是这个库不会被默认构建，除非有其他的组件依赖或者手工构建。
 
-    SET(LIBHELLO_SRC hello.c)
-    ADD_LIBRARY(hello SHARED ${LIBHELLO_SRC})   //动态库
-    ADD_LIBRARY(hello STATIC ${LIBHELLO_SRC})    //静态库
-    ADD_EXECUTABLE(demo main.c)
-    TARGET_LINK_LIBRARIES(demo hello)           //hello为一个库
+```cmake
+SET(LIBHELLO_SRC hello.c)
+ADD_LIBRARY(hello SHARED ${LIBHELLO_SRC})   //动态库
+ADD_LIBRARY(hello STATIC ${LIBHELLO_SRC})    //静态库
+ADD_EXECUTABLE(demo main.c)
+TARGET_LINK_LIBRARIES(demo hello)           //hello为一个库
+```
 
 #### INCLUDE\_DIRECTORIES
-
-    INCLUDE_DIRECTORIES([AFTER|BEFORE] [SYSTEM] dir1 dir2 ...)
+```cmake
+INCLUDE_DIRECTORIES([AFTER|BEFORE] [SYSTEM] dir1 dir2 ...)
+```
 
 用来**向工程添加多个特定的头文件搜索路径**，路径之间用空格分割，如果路径中包含了空格，可以使用双引号将它括起来，默认的行为是追加到当前的头文件搜索路径的后面。你可以通过两种方式来进行控制搜索路径添加的方式：
  1. **CMAKE_INCLUDE_DIRECTORIES_BEFORE**，通过 SET 这个 cmake 变量为 on，可以将添加的头文件搜索路径放在已有路径的前面。（另一个变量**CMAKE_INCLUDE_DIRECTORIES_BEFORE**也可使用!!）
@@ -121,19 +122,21 @@ ADD_LIBRARY|```ADD_LIBRARY(Hello hello.cxx)```|将hello.cxx编译成静态库如
 
 
 #### ADD\_DEFINITIONS
-    add_definitions(
-        -D__SHORT_FILE__=__FILE__
-    )
+```cmake
+add_definitions(
+    -D__SHORT_FILE__=__FILE__
+)
+```
 等价于
-
+```bash
     gcc -D__SHORT_FILE__=__FILE__ main.c -o demo
-
+```
 或者
-
-    cmake -D__SHORT__FILE__=__FILE__ main.c -o demo
-    cmake -DMY_VAR=hello .
-
-或者在```main.c```头部添加了
+```bash
+cmake -D__SHORT__FILE__=__FILE__ main.c -o demo
+cmake -DMY_VAR=hello .
+```
+或者在`main.c`头部添加了
     #define __SHORT_FILE__ __FILE__
 
 **注:** **ADD_DEFINITIONS**本是**添加编译参数**，如：
@@ -142,21 +145,19 @@ ADD_LIBRARY|```ADD_LIBRARY(Hello hello.cxx)```|将hello.cxx编译成静态库如
 
 
 #### ENABLE\_TESTING & ADD\_TEST
-
-    ENABLE_TESTING()
-    ADD_TEST(mytest ${PROJECT_BINARY_DIR}/BIN/main 2 10)
-    SET_TESTS_PROPERTIES(mytest PROPERTIES PASS_REGULAR_EXPRESSION "1024")  \\用来测试输出中是否包含后面的字符串
-
+```cmake
+ENABLE_TESTING()
+ADD_TEST(mytest ${PROJECT_BINARY_DIR}/BIN/main 2 10)
+SET_TESTS_PROPERTIES(mytest PROPERTIES PASS_REGULAR_EXPRESSION "1024")  \\用来测试输出中是否包含后面的字符串
+```
 #### AUX\_SOURCE\_DIRECTORY
-    AUX_SOURCE_DIRECTORY(. SRC_LIST)
-    ADD_EXECUTABLE(main ${SRC_LIST})
-
-
+```cmake
+AUX_SOURCE_DIRECTORY(. SRC_LIST)
+ADD_EXECUTABLE(main ${SRC_LIST})
+```
 
 ## FILE指令
-![](img/cmake_FILE.jpg)
-
-```
+```cmake
 FILE(WRITE filename "message towrite"... )
 FILE(APPEND filename "message towrite"... )
 FILE(READ filename variable)
@@ -170,120 +171,123 @@ FILE(TO_CMAKE_PATH path result)
 FILE(TO_NATIVE_PATH path result)
 ```
 
-**注：** ```FILE(GLOB_RECURSE SRC_LIST "*.cpp")```即将该目录下及所有子文件夹内的++所有++后缀为**.cpp**的文件的路径，全部放入**SRC_LIST**变量中。
-
-    查找当前目录下所有的源文件并保存到SRC_LIST变量里
-    aux_source_directory(. SRC_LIST)
-    查找src目录下所有以cmake开头的文件并保存到CMAKE_FILES变量里
-    file(GLOB CMAKE_FILES "src/cmake*")
-    file命令同时支持目录递归查找
-    file(GLOB_RECURSE CMAKE_FILES "src/cmake*")
-
+**注：** `FILE(GLOB_RECURSE SRC_LIST "*.cpp")`即将该目录下及所有子文件夹内的++所有++后缀为**.cpp**的文件的路径，全部放入**SRC_LIST**变量中。
+```cmake
+查找当前目录下所有的源文件并保存到SRC_LIST变量里
+aux_source_directory(. SRC_LIST)
+查找src目录下所有以cmake开头的文件并保存到CMAKE_FILES变量里
+file(GLOB CMAKE_FILES "src/cmake*")
+file命令同时支持目录递归查找
+file(GLOB_RECURSE CMAKE_FILES "src/cmake*")
+```
 ## IF
-
-    IF(expression)
-        # THEN section.
-        COMMAND1(ARGS ...)COMMAND2(ARGS ...)
-        ...
-    ELSE(expression)
-        # ELSE section.
-        COMMAND1(ARGS ...)
-        COMMAND2(ARGS ...)
-        ...
-    ENDIF(expression)
-
+```cmake
+IF(expression)
+    # THEN section.
+    COMMAND1(ARGS ...)COMMAND2(ARGS ...)
+    ...
+ELSE(expression)
+    # ELSE section.
+    COMMAND1(ARGS ...)
+    COMMAND2(ARGS ...)
+    ...
+ENDIF(expression)
+```
 表达式的使用方法如下：
-
-    IF(var)，如果变量不是：空，0，N, NO, OFF, FALSE, NOTFOUND 或
-    <var>_NOTFOUND 时，表达式为真。
-    IF(NOT var )，与上述条件相反。
-    IF(var1 AND var2)，当两个变量都为真是为真。
-    IF(var1 OR var2)，当两个变量其中一个为真时为真。
-    IF(COMMAND cmd)，当给定的 cmd 确实是命令并可以调用是为真。
-    IF(EXISTS dir)或者 IF(EXISTS file)，当目录名或者文件名存在时为真。
-    IF(file1 IS_NEWER_THAN file2)，当 file1 比 file2 新，或者 file1/file2 其
-    中有一个不存在时为真，文件名请使用完整路径。
-    IF(IS_DIRECTORY dirname)，当 dirname 是目录时，为真。
-    IF(variable MATCHES regex)
-    IF(string MATCHES regex)
+```cmake
+IF(var)，如果变量不是：空，0，N, NO, OFF, FALSE, NOTFOUND 或
+<var>_NOTFOUND 时，表达式为真。
+IF(NOT var )，与上述条件相反。
+IF(var1 AND var2)，当两个变量都为真是为真。
+IF(var1 OR var2)，当两个变量其中一个为真时为真。
+IF(COMMAND cmd)，当给定的 cmd 确实是命令并可以调用是为真。
+IF(EXISTS dir)或者 IF(EXISTS file)，当目录名或者文件名存在时为真。
+IF(file1 IS_NEWER_THAN file2)，当 file1 比 file2 新，或者 file1/file2 其
+中有一个不存在时为真，文件名请使用完整路径。
+IF(IS_DIRECTORY dirname)，当 dirname 是目录时，为真。
+IF(variable MATCHES regex)
+IF(string MATCHES regex)
+```
 当给定的变量或者字符串能够匹配正则表达式 regex 时为真。比如：
+```cmake
+IF("hello" MATCHES "ell")
+    MESSAGE("true")
+ENDIF("hello" MATCHES "ell")IF(variable LESS number)
 
-    IF("hello" MATCHES "ell")
-        MESSAGE("true")
-    ENDIF("hello" MATCHES "ell")IF(variable LESS number)
-   
-    IF(string LESS number)
-    IF(variable GREATER number)
-    IF(string GREATER number)
-    IF(variable EQUAL number)
-    IF(string EQUAL number)
-
+IF(string LESS number)
+IF(variable GREATER number)
+IF(string GREATER number)
+IF(variable EQUAL number)
+IF(string EQUAL number)
+```
 数字比较表达式
-
-    IF(variable STRLESS string)
-    IF(string STRLESS string)
-    IF(variable STRGREATER string)
-    IF(string STRGREATER string)
-    IF(variable STREQUAL string)
-    IF(string STREQUAL string)
-
+```cmake
+IF(variable STRLESS string)
+IF(string STRLESS string)
+IF(variable STRGREATER string)
+IF(string STRGREATER string)
+IF(variable STREQUAL string)
+IF(string STREQUAL string)
+```
 按照字母序的排列进行比较.
-
+```cmake
     IF(DEFINED variable)，如果变量被定义，为真。
-
+```
 一个小例子，用来判断平台差异：
-
-    IF(WIN32)
-           MESSAGE(STATUS “This is windows.”)
-        #作一些 Windows 相关的操作
-    ELSE(WIN32)   //容易引起歧义
-        MESSAGE(STATUS “This is not windows”)
-        #作一些非 Windows 相关的操作
-    ENDIF(WIN32)
-
-或者配合```SET(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)```使用后，上述语句可简化为如下形式：
-
-    IF(WIN32)
-    ELSE()
-    ENDIF()
-
+```cmake
+IF(WIN32)
+       MESSAGE(STATUS “This is windows.”)
+    #作一些 Windows 相关的操作
+ELSE(WIN32)   //容易引起歧义
+    MESSAGE(STATUS “This is not windows”)
+    #作一些非 Windows 相关的操作
+ENDIF(WIN32)
+```
+或者配合`SET(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)`使用后，上述语句可简化为如下形式：
+```cmake
+IF(WIN32)
+ELSE()
+ENDIF()
+```
 如果配合 ELSEIF 使用，可能的写法是这样:
-
-    IF(WIN32)
-        #do something related to WIN32
-    ELSEIF(UNIX)
-        #do something related to UNIX
-    ELSEIF(APPLE)
-        #do something related to APPLE
-    ENDIF(WIN32)
-
+```cmake
+IF(WIN32)
+    #do something related to WIN32
+ELSEIF(UNIX)
+    #do something related to UNIX
+ELSEIF(APPLE)
+    #do something related to APPLE
+ENDIF(WIN32)
+```
 ## WHILE
-    WHILE(condition)
-        COMMAND1(ARGS ...)
-        COMMAND2(ARGS ...)
-        ...
-    ENDWHILE(condition)
+```cmake
+WHILE(condition)
+    COMMAND1(ARGS ...)
+    COMMAND2(ARGS ...)
+    ...
+ENDWHILE(condition)
+```
 
 ## FOREACH
  1. 列表
-```
+```cmake
     AUX_SOURCE_DIRECTORY(. SRC_LIST)
     FOREACH(F ${SRC_LIST})
     MESSAGE(${F})
     ENDFOREACH(F)
 ```
  2. 范围
-```
+```cmake
     FOREACH(VAR RANGE 10)  //从0到10以1步进
     MESSAGE(${VAR})
     ENDFOREACH(VAR)
 ```
  3. 范围和步进
-```
+```cmake
     FOREACH(A RANGE 5 15 3)  //从5开始到15结束，以3为步进
     MESSAGE(${A})
     ENDFOREACH(A)
-````
+```
 **注:**<font color=red>直到遇到**ENDFOREACH**指令，整个语句块才会得到真正的执行。</font>
 
 
@@ -291,21 +295,15 @@ FILE(TO_NATIVE_PATH path result)
 构建分为**内部构建(in-sourcebuild)**和**外部构建(out-of-source build)**。
 **外部构建**一个最大的好处是，**对于原有的工程没有任何影响，所有动作全部发生在编译目录**。而**cmake强烈推荐的是_外部构建_**。
 
-![](img/out-of-source-build.jpg)
 
 |——build
-
 |——CMakeLists.txt
-
 |——CMakeLists.txt.bak
+|____main.c
 
-|__\__main.c
+根目录下包含源文件*.c、CMakeList.txt。然后创建**build**文件夹，并`cd build`下，再执行`cmake ..`，再`make -j4`.
 
-根目录下包含源文件*.c、CMakeList.txt。然后创建**build**文件夹，并```cd build```下，再执行```cmake ..```，再```make -j4```.
-
-**注:** 通过外部编译进行工程构建，**HELLO_SOURCE_DIR**仍然指代工程路径，即```/backup/cmake/t1```;而 **HELLO_BINARY_DIR** 则指代编译路径，即```/backup/cmake/t1/build```.
-
-
+**注:** 通过外部编译进行工程构建，**HELLO_SOURCE_DIR**仍然指代工程路径，即`/backup/cmake/t1`;而 **HELLO_BINARY_DIR** 则指代编译路径，即`/backup/cmake/t1/build`.
 
 
 ## FAQ
